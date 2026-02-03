@@ -1,0 +1,8 @@
+{"level":30,"time":1769959629128,"pid":35188,"hostname":"yanglongfei","msg":"config>{\"host\":\"localhost\",\"user\":\"root\",\"password\":\"******\",\"database\":\"guiguxiaozhi\",\"port\":3306}"}
+{"level":30,"time":1769959629129,"pid":35188,"hostname":"yanglongfei","msg":"MySQL MCP server running on stdio"}
+{"level":30,"time":1770038175031,"pid":34748,"hostname":"yanglongfei","msg":"config>{\"host\":\"localhost\",\"user\":\"root\",\"password\":\"******\",\"database\":\"guiguxiaozhi\",\"port\":3306}"}
+{"level":30,"time":1770038175032,"pid":34748,"hostname":"yanglongfei","msg":"MySQL MCP server running on stdio"}
+{"level":30,"time":1770055262679,"pid":8264,"hostname":"yanglongfei","msg":"config>{\"host\":\"localhost\",\"user\":\"root\",\"password\":\"******\",\"database\":\"guiguxiaozhi\",\"port\":3306}"}
+{"level":30,"time":1770055262680,"pid":8264,"hostname":"yanglongfei","msg":"MySQL MCP server running on stdio"}
+{"level":30,"time":1770088983108,"pid":27132,"hostname":"yanglongfei","msg":"config>{\"host\":\"localhost\",\"user\":\"root\",\"password\":\"******\",\"database\":\"guiguxiaozhi\",\"port\":3306}"}
+{"level":30,"time":1770088983108,"pid":27132,"hostname":"yanglongfei","msg":"MySQL MCP server running on stdio"}

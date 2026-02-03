@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="quick-start" />
+      </profile>
+      <profile name="Annotation profile for super-sql" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$PROJECT_DIR$/../../m2/repository/org/springframework/boot/spring-boot-configuration-processor/3.4.4/spring-boot-configuration-processor-3.4.4.jar" />
+          <entry name="$PROJECT_DIR$/../../m2/repository/org/projectlombok/lombok/1.18.32/lombok-1.18.32.jar" />
+          <entry name="$PROJECT_DIR$/../../m2/repository/org/springframework/boot/spring-boot-configuration-processor/3.4.4/spring-boot-configuration-processor-3.4.4.jar" />
+          <entry name="$PROJECT_DIR$/../../m2/repository/org/projectlombok/lombok/1.18.32/lombok-1.18.32.jar" />
+        </processorPath>
+        <module name="super-sql-mybatis-plus" />
+        <module name="super-sql-mcp-stdio" />
+        <module name="super-sql-mcp-client" />
+        <module name="super-sql-mcp-webmvc" />
+        <module name="super-sql-console" />
+        <module name="super-sql-spring-boot-starter" />
+        <module name="super-sql-core" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="quick-start" options="-parameters" />
+      <module name="spring-ai-parent" options="" />
+      <module name="super-sql-console" options="-parameters" />
+      <module name="super-sql-core" options="-parameters" />
+      <module name="super-sql-mcp-client" options="-parameters" />
+      <module name="super-sql-mcp-stdio" options="-parameters" />
+      <module name="super-sql-mcp-webmvc" options="-parameters" />
+      <module name="super-sql-mybatis-plus" options="-parameters" />
+      <module name="super-sql-spring-boot-starter" options="-parameters" />
+    </option>
+  </component>
+</project>

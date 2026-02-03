@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/SuperSQL/super-sql-console/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SuperSQL/super-sql-console/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SuperSQL/super-sql-core/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SuperSQL/super-sql-core/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SuperSQL/super-sql-mcp/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SuperSQL/super-sql-mcp/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SuperSQL/super-sql-mcp/super-sql-mcp-client/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SuperSQL/super-sql-mcp/super-sql-mcp-client/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SuperSQL/super-sql-mcp/super-sql-mcp-stdio/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SuperSQL/super-sql-mcp/super-sql-mcp-stdio/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SuperSQL/super-sql-mcp/super-sql-mcp-webmvc/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SuperSQL/super-sql-mcp/super-sql-mcp-webmvc/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SuperSQL/super-sql-mybatis-plus/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SuperSQL/super-sql-mybatis-plus/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SuperSQL/super-sql-spring-boot-starter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SuperSQL/super-sql-spring-boot-starter/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/quick-start/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

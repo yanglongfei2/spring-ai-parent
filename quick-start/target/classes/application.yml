@@ -1,0 +1,64 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: spring-ai-study
+  ai:
+    dashscope:
+      api-key: ${DASHSCOPE_API_KEY}
+      chat:
+        options:
+          model: qwen-max
+      embedding:
+        options:
+          model:  text-embedding-v4
+    deepseek:
+      api-key: ${DEEP_SEEK_API_KEY}
+      chat:
+        options:
+          model: deepseek-chat
+    chat:
+      memory:
+        repository:
+          jdbc:
+            initialize-schema: NEVER
+            schema: classpath:/schema-mysql.sql
+    vectorstore:
+      pinecone:
+        api-key: ${PINECONE_API_KEY}
+        index-name: ai-index
+        environment: us-east-1
+
+
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/lf_admin?allowPublicKeyRetrieval=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC&
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+logging:
+  level:
+    org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor: DEBUG
+
+
+redis:
+  host: localhost
+  port: 6379
+  timeout: 5000
+
+
+super-sql:
+  init-train: false
+  scope: ALONE
+  schemas:
+    - schema: lf_admin
+
+
+
+
+
+
+
+
+

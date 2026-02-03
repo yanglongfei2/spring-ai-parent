@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown 渲染测试</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github-dark.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/languages/sql.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .test-section h2 {
+            color: #764ba2;
+            margin-top: 0;
+        }
+
+        .rendered {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+        }
+
+        /* Markdown 样式 */
+        .rendered h1, .rendered h2, .rendered h3 {
+            margin: 10px 0 8px 0;
+            font-weight: bold;
+        }
+
+        .rendered h1 { font-size: 1.5em; }
+        .rendered h2 { font-size: 1.3em; }
+        .rendered h3 { font-size: 1.1em; }
+
+        .rendered p {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
+        .rendered ul, .rendered ol {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+
+        .rendered li {
+            margin: 4px 0;
+        }
+
+        .rendered code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+            color: #e83e8c;
+        }
+
+        .rendered pre {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 12px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 10px 0;
+            position: relative;
+        }
+
+        .rendered pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .rendered blockquote {
+            border-left: 4px solid #667eea;
+            padding-left: 12px;
+            margin: 10px 0;
+            color: #666;
+            font-style: italic;
+        }
+
+        .rendered table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 10px 0;
+            font-size: 0.9em;
+        }
+
+        .rendered table th, .rendered table td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        .rendered table th {
+            background: #667eea;
+            color: white;
+            font-weight: bold;
+        }
+
+        .rendered table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .rendered a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .rendered a:hover {
+            text-decoration: underline;
+        }
+
+        .rendered hr {
+            border: none;
+            border-top: 2px solid #e0e0e0;
+            margin: 15px 0;
+        }
+
+        .code-block-wrapper {
+            position: relative;
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .copy-button:hover {
+            opacity: 1;
+        }
+
+        .copy-button.copied {
+            background: #00C851;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📝 Markdown 渲染测试页面</h1>
+        <p>此页面用于测试 NL2SQL 对话中的 Markdown 渲染效果</p>
+
+        <div class="test-section">
+            <h2>测试 1: SQL 查询示例</h2>
+            <div class="rendered" id="test1"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>测试 2: 表格和列表</h2>
+            <div class="rendered" id="test2"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>测试 3: 代码块和引用</h2>
+            <div class="rendered" id="test3"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>测试 4: 完整的 NL2SQL 响应</h2>
+            <div class="rendered" id="test4"></div>
+        </div>
+    </div>
+
+    <script>
+        // 配置 marked.js
+        marked.setOptions({
+            highlight: function(code, lang) {
+                if (lang && hljs.getLanguage(lang)) {
+                    try {
+                        return hljs.highlight(code, { language: lang }).value;
+                    } catch (err) {}
+                }
+                return hljs.highlightAuto(code).value;
+            },
+            breaks: true,
+            gfm: true
+        });
+
+        function renderMarkdown(text) {
+            let html = marked.parse(text);
+            
+            html = html.replace(/<pre><code class="language-(\w+)">([\s\S]*?)<\/code><\/pre>/g, 
+                function(match, lang, code) {
+                    const decodedCode = decodeHtmlEntities(code);
+                    return `
+                        <div class="code-block-wrapper">
+                            <button class="copy-button" onclick="copyCode(this, \`${escapeForAttribute(decodedCode)}\`)">复制</button>
+                            <pre><code class="language-${lang}">${code}</code></pre>
+                        </div>
+                    `;
+                }
+            );
+            
+            html = html.replace(/<pre><code>([\s\S]*?)<\/code><\/pre>/g, 
+                function(match, code) {
+                    const decodedCode = decodeHtmlEntities(code);
+                    return `
+                        <div class="code-block-wrapper">
+                            <button class="copy-button" onclick="copyCode(this, \`${escapeForAttribute(decodedCode)}\`)">复制</button>
+                            <pre><code>${code}</code></pre>
+                        </div>
+                    `;
+                }
+            );
+            
+            return html;
+        }
+
+        function decodeHtmlEntities(text) {
+            const textarea = document.createElement('textarea');
+            textarea.innerHTML = text;
+            return textarea.value;
+        }
+
+        function escapeForAttribute(str) {
+            return str.replace(/`/g, '\\`').replace(/\$/g, '\\$');
+        }
+
+        function copyCode(button, code) {
+            const decodedCode = code.replace(/\\`/g, '`').replace(/\\\$/g, '$');
+            navigator.clipboard.writeText(decodedCode).then(() => {
+                const originalText = button.textContent;
+                button.textContent = '已复制!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // 测试内容
+        const test1 = `
+### 查询结果
+
+根据您的问题"用户表有多少用户"，我执行了以下 SQL 查询：
+
+\`\`\`sql
+SELECT COUNT(*) as user_count 
+FROM users 
+WHERE status = 'active';
+\`\`\`
+
+**查询结果：**
+- 总用户数：**1,234** 人
+- 活跃用户：**987** 人
+- 注册时间：2024年1月至今
+`;
+
+        const test2 = `
+### 部门统计信息
+
+| 部门名称 | 用户数量 | 平均年龄 | 平均工资 |
+|---------|---------|---------|---------|
+| 技术部 | 45 | 28.5 | ¥15,000 |
+| 销售部 | 32 | 30.2 | ¥12,000 |
+| 市场部 | 28 | 27.8 | ¥11,500 |
+| 人事部 | 15 | 32.1 | ¥10,000 |
+
+**关键发现：**
+1. 技术部人数最多，占比 37.5%
+2. 人事部平均年龄最高
+3. 技术部平均工资最高
+`;
+
+        const test3 = `
+### 数据分析建议
+
+> **重要提示：** 以下是基于当前数据的分析结果
+
+#### Python 数据处理示例
+
+\`\`\`python
+import pandas as pd
+
+# 读取数据
+df = pd.read_sql(query, connection)
+
+# 计算统计信息
+summary = df.groupby('department').agg({
+    'user_id': 'count',
+    'age': 'mean',
+    'salary': 'mean'
+})
+
+print(summary)
+\`\`\`
+
+#### 内联代码示例
+
+使用 \`SELECT * FROM users\` 可以查询所有用户信息。
+
+---
+
+**注意事项：**
+- 确保数据库连接正常
+- 检查用户权限
+- 定期备份数据
+`;
+
+        const test4 = `
+# 📊 查询结果分析
+
+## 问题：查询有哪些部门，及部门下有多少用户
+
+### 1. 执行的 SQL 查询
+
+\`\`\`sql
+SELECT 
+    d.department_name,
+    d.department_id,
+    COUNT(u.user_id) as user_count,
+    AVG(u.age) as avg_age
+FROM departments d
+LEFT JOIN users u ON d.department_id = u.department_id
+WHERE d.status = 'active'
+GROUP BY d.department_id, d.department_name
+ORDER BY user_count DESC;
+\`\`\`
+
+### 2. 查询结果
+
+| 部门名称 | 部门ID | 用户数量 | 平均年龄 |
+|---------|--------|---------|---------|
+| 技术研发部 | DEPT001 | 156 | 28.3 |
+| 产品运营部 | DEPT002 | 89 | 29.5 |
+| 市场营销部 | DEPT003 | 67 | 27.8 |
+| 人力资源部 | DEPT004 | 23 | 31.2 |
+| 财务管理部 | DEPT005 | 18 | 33.5 |
+
+### 3. 数据洞察
+
+**主要发现：**
+1. 🏆 **技术研发部**规模最大，有 156 名员工
+2. 📈 各部门平均年龄在 27-34 岁之间，整体偏年轻化
+3. 💼 前三大部门占总员工数的 **73.5%**
+
+**建议：**
+- 考虑为技术研发部进行团队细分
+- 关注小型部门的人员配置
+- 保持年龄结构的多样性
+
+### 4. 相关查询
+
+如需进一步分析，可以尝试：
+
+\`\`\`sql
+-- 查询每个部门的工资统计
+SELECT department_name, 
+       AVG(salary) as avg_salary,
+       MAX(salary) as max_salary,
+       MIN(salary) as min_salary
+FROM users u
+JOIN departments d ON u.department_id = d.department_id
+GROUP BY department_name;
+\`\`\`
+
+> 💡 **提示：** 点击代码块右上角的"复制"按钮可以快速复制 SQL 语句
+`;
+
+        // 渲染测试内容
+        document.getElementById('test1').innerHTML = renderMarkdown(test1);
+        document.getElementById('test2').innerHTML = renderMarkdown(test2);
+        document.getElementById('test3').innerHTML = renderMarkdown(test3);
+        document.getElementById('test4').innerHTML = renderMarkdown(test4);
+    </script>
+</body>
+</html>
